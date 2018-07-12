@@ -4,7 +4,7 @@ import re
 from datetime import datetime
 from datetime import timedelta
 import pytz
-#import scraperwiki
+import scraperwiki
 
 def queryHourlyRainfall(y, m, d, h):
     r = requests.get(
@@ -50,14 +50,12 @@ def queryDailyRainfall(y, m, d):
 hkt = pytz.timezone('Asia/Hong_Kong')
 ytd = datetime.now().replace(tzinfo=hkt)-timedelta(days=1)
 ytdY = ytd.strftime("%y")
-# print(ytd.strftime("%m"))
-# print(ytd.strftime("%d"))
 
-daily = queryDailyRainfall(ytd.strftime("%y"), ytd.strftime("%m"), ytd.strftime("%d"))
-#daily = queryDailyRainfall("18", "06", "05")
-for hour in daily:
-    for h in hour:
-        h['key'] = '{}{}{}{}-{}'.format(ytdY, h['month'],h['day'],h['hour'],h['region'])
-        scraperwiki.sqlite.save(unique_keys=['key'], data=h)
-        print(h)
-print(ytd)
+#daily = queryDailyRainfall(ytdY, ytd.strftime("%m"), ytd.strftime("%d"))
+daily = queryDailyRainfall("18", "06", "05")
+while daily:
+    for hour in daily:
+        for h in hour:
+            h['key'] = '{}{}{}{}-{}'.format(ytdY, h['month'],h['day'],h['hour'],h['region'])
+            scraperwiki.sqlite.save(unique_keys=['key'], data=h)
+            #print(h)
