@@ -53,7 +53,7 @@ ytdY = ytd.strftime("%y")
 # print(ytd.strftime("%m"))
 # print(ytd.strftime("%d"))
 
-daily = print(queryDailyRainfall(ytd.strftime("%y"), ytd.strftime("%m"), ytd.strftime("%d")))
+daily = queryDailyRainfall(ytd.strftime("%y"), ytd.strftime("%m"), ytd.strftime("%d"))
 #daily = queryDailyRainfall("18", "06", "05")
 for hour in daily:
     for h in hour:
