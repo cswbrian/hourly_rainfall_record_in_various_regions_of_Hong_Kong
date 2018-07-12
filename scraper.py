@@ -29,7 +29,7 @@ def queryHourlyRainfall(y, m, d, h):
                 else:
                     max = re.search("(\d+)", td[1].text).group(0)
                 region_data = dict(
-                    datetime_region = '{}-{}-{}-{}'.format(m, d, h, td[0].text),
+                    y_m_d_h_region = '{}-{}-{}-{}-{}'.format(y, m, d, h, td[0].text),
                     # month = m,
                     # day = d,
                     # hour = h,
@@ -57,6 +57,6 @@ daily = queryDailyRainfall("18", "06", "05")
 
 for hour in daily:
     for h in hour:
-        h['key'] = '{}-{}'.format(ytdY, h['datetime_region'])
-        scraperwiki.sqlite.save(unique_keys=['key'], data=h)
-        #print(h)
+        scraperwiki.sqlite.save(unique_keys=['y_m_d_h_region'], data=h)
+        print(h)
+print(ytd.strftime("%Y-%m-%d"))
