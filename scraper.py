@@ -52,8 +52,8 @@ hkt = pytz.timezone('Asia/Hong_Kong')
 ytd = datetime.now().replace(tzinfo=hkt)-timedelta(days=1)
 ytdY = ytd.strftime("%y")
 
-daily = queryDailyRainfall(ytdY, ytd.strftime("%m"), ytd.strftime("%d"))
-#daily = queryDailyRainfall("18", "06", "05")
+#daily = queryDailyRainfall(ytdY, ytd.strftime("%m"), ytd.strftime("%d"))
+daily = queryDailyRainfall("18", "06", "05")
 while daily:
     for hour in daily:
         for h in hour:
