@@ -44,32 +44,16 @@ def queryHourlyRainfall(y, m, d, h):
 def queryDailyRainfall(y, m, d):
     daily_data = []
     for h in range(0, 24):
-        #print("{} {}".format(h, queryHourlyRainfall(d, m, str(h).zfill(2))))
         daily_data.append(queryHourlyRainfall(y, m, d, str(h).zfill(2)))
     return (daily_data)
 
 
-###
-def daterange(date1, date2):
-    for n in range(int ((date2 - date1).days)+1):
-        yield date1 + timedelta(n)
-
-start_dt = datetime(2018, 4, 2)
-end_dt = datetime(2018, 7, 12)
-for dt in daterange(start_dt, end_dt):
-    daily = queryDailyRainfall(dt.strftime("%y"), dt.strftime("%m"), dt.strftime("%d"))
-    for hour in daily:
-        for h in hour:
-            scraperwiki.sqlite.save(unique_keys=['y_m_d_h_region'], data=h)
-            print(h)
-
-###
-# hkt = pytz.timezone('Asia/Hong_Kong')
-# ytd = datetime.now().replace(tzinfo=hkt)-timedelta(days=1)
-# ytdY = ytd.strftime("%y")
-#daily = queryDailyRainfall(ytdY, ytd.strftime("%m"), ytd.strftime("%d"))
-# for hour in daily:
-#     for h in hour:
-#         scraperwiki.sqlite.save(unique_keys=['y_m_d_h_region'], data=h)
-#         print(h)
-# print(ytd.strftime("%Y-%m-%d"))
+hkt = pytz.timezone('Asia/Hong_Kong')
+ytd = datetime.now().replace(tzinfo=hkt)-timedelta(days=1)
+ytdY = ytd.strftime("%y")
+daily = queryDailyRainfall(ytdY, ytd.strftime("%m"), ytd.strftime("%d"))
+for hour in daily:
+    for h in hour:
+        scraperwiki.sqlite.save(unique_keys=['y_m_d_h_region'], data=h)
+        print(h)
+print(ytd.strftime("%Y-%m-%d"))
