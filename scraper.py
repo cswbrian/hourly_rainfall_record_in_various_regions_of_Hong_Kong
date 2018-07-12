@@ -68,7 +68,7 @@ ytdY = ytd.strftime("%y")
 daily = queryDailyRainfall("18", "06", "05")
 for hour in daily:
     for h in hour:
-        key = '{}{}{}{}-{}'.format(ytdY, h['month'],h['day'],h['hour'],h['region'])
+        h.key = '{}{}{}{}-{}'.format(ytdY, h['month'],h['day'],h['hour'],h['region'])
         scraperwiki.sqlite.save(unique_keys=key, data=h)
         print(key, h)
 
